@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DDCEC23C-4A82-494A-926F-4769F4513484}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		TODO.txt = TODO.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku", "Kenku\Kenku.csproj", "{6B59E58A-808C-4F77-9157-D245F09C15BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.NAudio", "Kenku.NAudio\Kenku.NAudio.csproj", "{FDA9F89D-7FE3-4430-9544-86E27BF51F23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.ElevenLabs", "Kenku.ElevenLabs\Kenku.ElevenLabs.csproj", "{B51E59E8-DC10-4FDA-B3A7-2793C6EBF97B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{4A0BEA66-6846-46BC-A881-751D207A4160}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.MicrosoftTextToSpeech", "Kenku.MicrosoftTextToSpeech\Kenku.MicrosoftTextToSpeech.csproj", "{514FD353-E845-4A9E-8F03-4122F2E22530}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.ConsoleApplication", "Kenku.ConsoleApplication\Kenku.ConsoleApplication.csproj", "{3A14058B-14C2-4BF8-89EB-7B9091E75FCF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.Id3Tags", "Kenku.Id3Tags\Kenku.Id3Tags.csproj", "{61D027D0-2A76-42AB-B22F-F69E154619BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.WinformApplication", "Kenku.WinformApplication\Kenku.WinformApplication.csproj", "{50C915A0-B447-4E16-97DE-1D29E76D07E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kenku.GoogleCloudVoice", "Kenku.GoogleCloudVoice\Kenku.GoogleCloudVoice.csproj", "{2D33F599-77F9-4D5C-BD81-7BF85181862B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B59E58A-808C-4F77-9157-D245F09C15BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B59E58A-808C-4F77-9157-D245F09C15BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B59E58A-808C-4F77-9157-D245F09C15BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B59E58A-808C-4F77-9157-D245F09C15BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA9F89D-7FE3-4430-9544-86E27BF51F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA9F89D-7FE3-4430-9544-86E27BF51F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA9F89D-7FE3-4430-9544-86E27BF51F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA9F89D-7FE3-4430-9544-86E27BF51F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51E59E8-DC10-4FDA-B3A7-2793C6EBF97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51E59E8-DC10-4FDA-B3A7-2793C6EBF97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51E59E8-DC10-4FDA-B3A7-2793C6EBF97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51E59E8-DC10-4FDA-B3A7-2793C6EBF97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A0BEA66-6846-46BC-A881-751D207A4160}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A0BEA66-6846-46BC-A881-751D207A4160}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A0BEA66-6846-46BC-A881-751D207A4160}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A0BEA66-6846-46BC-A881-751D207A4160}.Release|Any CPU.Build.0 = Release|Any CPU
+		{514FD353-E845-4A9E-8F03-4122F2E22530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{514FD353-E845-4A9E-8F03-4122F2E22530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{514FD353-E845-4A9E-8F03-4122F2E22530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{514FD353-E845-4A9E-8F03-4122F2E22530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A14058B-14C2-4BF8-89EB-7B9091E75FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A14058B-14C2-4BF8-89EB-7B9091E75FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A14058B-14C2-4BF8-89EB-7B9091E75FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A14058B-14C2-4BF8-89EB-7B9091E75FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61D027D0-2A76-42AB-B22F-F69E154619BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61D027D0-2A76-42AB-B22F-F69E154619BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61D027D0-2A76-42AB-B22F-F69E154619BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61D027D0-2A76-42AB-B22F-F69E154619BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C915A0-B447-4E16-97DE-1D29E76D07E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C915A0-B447-4E16-97DE-1D29E76D07E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C915A0-B447-4E16-97DE-1D29E76D07E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C915A0-B447-4E16-97DE-1D29E76D07E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {687F27F3-A90F-4CBB-8981-68465BBF3C4F}
+	EndGlobalSection
+EndGlobal
