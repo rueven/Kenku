@@ -219,7 +219,33 @@ namespace Kenku.WinformApplication
                 .BindVoiceRecordings(this.Session.Personalities, this.Session.VoiceRecordings);
         }
 
-        private async void KenkuSimpleTextToSpeechPlayCommand_Click(object sender, EventArgs e)
+        private async Task ExecuteWhilePushToTalk(Func<Task> method)
+        {
+            if (this.Session.Container.ConfigurationService is IExtendedConfigurationService configurationService)
+            {
+                if (configurationService.IsPushToTalkEmulationEnabled)
+                {
+                    var robot = new Desktop.Robot.Robot();
+                    var key = configurationService
+                        .PushToTalkKey
+                        !.First();
+                    robot.KeyDown(key);
+                    await Task
+                        .Delay(100)
+                        .ConfigureAwait(false);
+                    await method()
+                        .ConfigureAwait(false);
+                    robot.KeyUp(key);
+                }
+            }
+            else
+            {
+                await method()
+                    .ConfigureAwait(false);
+            }
+        }
+
+        private async Task PlaySimpleTextToSpeech(string text)
         {
             if (this.KenkuSimpleTextToSpeechPlayCommand.Tag is CancellationTokenSource source)
             {
@@ -242,7 +268,7 @@ namespace Kenku.WinformApplication
                         {
                             await this
                                 .Session
-                                .PlayTextToSpeechAsync(this.KenkuSimpleTextToSpeechInputText.Text, tokenSource.Token);
+                                .PlayTextToSpeechAsync(text, tokenSource.Token);
                         }
                         catch (OperationCanceledException) { }
                         finally
@@ -255,6 +281,9 @@ namespace Kenku.WinformApplication
                 this.KenkuSimpleTextToSpeechPlayCommand.Image = this.PlayIcon;
             }
         }
+
+        private async void KenkuSimpleTextToSpeechPlayCommand_Click(object sender, EventArgs e) => await this
+            .PlaySimpleTextToSpeech(this.KenkuSimpleTextToSpeechInputText.Text);
 
         private void KenkuSimpleTextToSpeechVoiceSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -326,7 +355,7 @@ namespace Kenku.WinformApplication
                 }
                 button.ResumeLayout();
             }
-            
+
         }
 
         private void KenkuTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -485,6 +514,25 @@ namespace Kenku.WinformApplication
             }
         }
 
+        private async void KenkuSimpleTextToSpeechInputText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return && !string.IsNullOrEmpty(this.KenkuSimpleTextToSpeechInputText.Text))
+            {
+                // After hitting enter, the push-to-talk can interfere with the textbox being cleared.
+                this.KenkuSimpleTextToSpeechClearCommand
+                    .Focus();
+                var task = this
+                    .PlaySimpleTextToSpeech(this.KenkuSimpleTextToSpeechInputText.Text);
+                await Task
+                    .Delay(100);
+                this.KenkuSimpleTextToSpeechInputText.Text = string.Empty;
+                this.KenkuSimpleTextToSpeechInputText
+                    .Focus();
+                await task;
+                return;
+            }
+        }
+
         private void KenkuVoiceSelectionApplyCommand_Click(object sender, EventArgs e)
         {
             var whiteList = this.KenkuVoiceSelectionCheckBoxList
@@ -501,30 +549,8 @@ namespace Kenku.WinformApplication
             .KenkuVoiceSelectionCheckBoxList
             .SetAllCheckValue(false);
 
-        private async Task ExecuteWhilePushToTalk(Func<Task> method)
-        {
-            if (this.Session.Container.ConfigurationService is IExtendedConfigurationService configurationService)
-            {
-                if (configurationService.IsPushToTalkEmulationEnabled)
-                {
-                    var robot = new Desktop.Robot.Robot();
-                    var key = configurationService
-                        .PushToTalkKey
-                        !.First();
-                    robot.KeyDown(key);
-                    await Task
-                        .Delay(100)
-                        .ConfigureAwait(false);
-                    await method()
-                        .ConfigureAwait(false);
-                    robot.KeyUp(key);
-                }
-            }
-            else
-            {
-                await method()
-                    .ConfigureAwait(false);
-            }
-        }
+        private void KenkuSimpleTextToSpeechClearCommand_Click(object sender, EventArgs e) => this
+            .KenkuSimpleTextToSpeechInputText
+            .Clear();
     }
 }
