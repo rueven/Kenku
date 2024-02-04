@@ -9,5 +9,8 @@ namespace Kenku.Services.Implementations
         public string? OutputAudioDeviceServiceName { get; set; }
         public string? PreviewAudioDeviceServiceName { get; set; }
         public string? InputAudioDeviceServiceName { get; set; }
+        public bool UseForcedPreambleForTextToSpeech { get; set; }
+        public bool UseForcedPreambleForVoiceRecordingPlayback { get; set; }
+        public string? ForcedPreambleText { get; set; }
     }
 }

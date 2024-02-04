@@ -31,7 +31,7 @@ namespace Kenku.Objects.Implementations
         public ITextToSpeechService SimpleTextToSpeechService { get; set; }
         public IReadOnlyList<IReadOnlyPersonality> Personalities { get; private set; }
         public IReadOnlyList<IReadOnlyVoiceRecording> VoiceRecordings { get; private set; }
-
+        
         private IReadOnlyList<ITextToSpeechService> InnerFilteredTextToSpeechServices;
         public IReadOnlyList<ITextToSpeechService> FilteredTextToSpeechServices
         {
@@ -55,37 +55,60 @@ namespace Kenku.Objects.Implementations
             .Container
             .TextToSpeechServices;
 
-        public async Task PlayTextToSpeechAsync(string text, CancellationToken cancellationToken)
+        private IConfigurationService ConfigurationService => this
+            .Container
+            .ConfigurationService;
+
+        private IOutputAudioDeviceService[] GetOutputDevicesForPlayback()
         {
-            var audioDevices = new List<IOutputAudioDeviceService>();
-            audioDevices.Add(this.OutputAudioDeviceService);
             if (this.Container.ConfigurationService.IsMirroredPlaybackMode)
             {
-                audioDevices.Add(this.PreviewAudioDeviceService);
+                return
+                [
+                    this.OutputAudioDeviceService,
+                    this.PreviewAudioDeviceService
+                ];
             }
+            return
+            [
+                this.OutputAudioDeviceService
+            ];
+        }
+
+        public async Task PlayTextToSpeechAsync(string text, CancellationToken cancellationToken)
+        {
+            var outputAudioDevices = this.GetOutputDevicesForPlayback();
+            var preamble = this.ConfigurationService.UseForcedPreambleForTextToSpeech ? this.ConfigurationService.ForcedPreambleText : string.Empty;
             await this
                 .SimpleTextToSpeechService!
                 .SpeakAsync
                 (
-                    text,
+                    $"{preamble}{text}",
                     cancellationToken,
-                    audioDevices.ToArray()
+                    outputAudioDevices
                 )
                 .ConfigureAwait(false);
         }
 
         public async Task PlayVoiceRecording(IReadOnlyVoiceRecording voiceRecording, CancellationToken cancellationToken)
         {
-            var outputAudioDevices = new List<IOutputAudioDeviceService>();
-            outputAudioDevices.Add(this.OutputAudioDeviceService);
-            if (this.Container.ConfigurationService.IsMirroredPlaybackMode)
+            var outputAudioDevices = this.GetOutputDevicesForPlayback();
+            if (this.ConfigurationService.UseForcedPreambleForVoiceRecordingPlayback && !string.IsNullOrWhiteSpace(this.ConfigurationService.ForcedPreambleText))
             {
-                outputAudioDevices.Add(this.PreviewAudioDeviceService);
+                await this.Container
+                    .KenkuEmulationService
+                    .SpeakAsync
+                    (
+                        this.ConfigurationService.ForcedPreambleText,
+                        cancellationToken,
+                        outputAudioDevices
+                    )
+                    .ConfigureAwait(false);
             }
             await this
                 .Container
                 .VoiceRecordingService
-                .PlayAsync(voiceRecording, cancellationToken, outputAudioDevices.ToArray())
+                .PlayAsync(voiceRecording, cancellationToken, outputAudioDevices)
                 .ConfigureAwait(false);
         }
 

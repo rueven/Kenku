@@ -121,13 +121,19 @@ namespace Kenku.WinformApplication
                         {
                             IsMirroredPlaybackMode = configurationService.IsMirroredPlaybackMode,
                             PushToTalkKey = configurationService.PushToTalkKey,
-                            IsPushToTalkEmulationEnabled = configurationService.IsPushToTalkEmulationEnabled
+                            IsPushToTalkEmulationEnabled = configurationService.IsPushToTalkEmulationEnabled,
+                            UseForcedPreambleForTextToSpeech = configurationService.UseForcedPreambleForTextToSpeech,
+                            UseForcedPreambleForVoiceRecordingPlayback = configurationService.UseForcedPreambleForVoiceRecordingPlayback,
+                            ForcedPreambleText = configurationService.ForcedPreambleText
                         };
                         if (form.ShowDialog(this) == DialogResult.OK)
                         {
                             configurationService.IsMirroredPlaybackMode = form.IsMirroredPlaybackMode;
                             configurationService.PushToTalkKey = form.PushToTalkKey;
                             configurationService.IsPushToTalkEmulationEnabled = form.IsPushToTalkEmulationEnabled;
+                            configurationService.UseForcedPreambleForTextToSpeech = form.UseForcedPreambleForTextToSpeech;
+                            configurationService.UseForcedPreambleForVoiceRecordingPlayback = form.UseForcedPreambleForVoiceRecordingPlayback;
+                            configurationService.ForcedPreambleText = form.ForcedPreambleText;
                             configurationService.Save();
                         }
                     });

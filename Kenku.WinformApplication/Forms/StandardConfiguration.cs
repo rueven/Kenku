@@ -21,5 +21,23 @@
             get => string.IsNullOrWhiteSpace(this.PushToTalkTextBox.Text) ? null : this.PushToTalkTextBox.Text;
             set => this.PushToTalkTextBox.Text = value;
         }
+
+        public bool UseForcedPreambleForTextToSpeech
+        {
+            get => this.HasForcedPreambleForTextToSpeech.Checked;
+            set => this.HasForcedPreambleForTextToSpeech.Checked = value;
+        }
+
+        public bool UseForcedPreambleForVoiceRecordingPlayback
+        {
+            get => this.HasForcedPreambleForVoiceRecordingPlayback.Checked;
+            set => this.HasForcedPreambleForVoiceRecordingPlayback.Checked = value;
+        }
+
+        public string? ForcedPreambleText
+        {
+            get => string.IsNullOrWhiteSpace(this.ForcedPreambleTextBox.Text) ? null : this.ForcedPreambleTextBox.Text;
+            set=> this.ForcedPreambleTextBox.Text = value;
+        }
     }
 }

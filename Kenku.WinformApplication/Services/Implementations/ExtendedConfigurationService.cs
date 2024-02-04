@@ -15,5 +15,8 @@ namespace Kenku.WinformApplication.Services.Implementations
         public bool MicrosoftSpeechToTextServiceEnabled { get; set; }
         public bool IsPushToTalkEmulationEnabled { get; set; }
         public string? PushToTalkKey { get; set; }
+        public bool UseForcedPreambleForTextToSpeech { get; set; }
+        public bool UseForcedPreambleForVoiceRecordingPlayback { get; set; }
+        public string? ForcedPreambleText { get; set; }
     }
 }

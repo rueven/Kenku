@@ -117,5 +117,20 @@ namespace Kenku.WinformApplication.Services.Implementations
             get => this.ReadValue(x => x.PushToTalkKey);
             set => this.Service.PushToTalkKey = value;
         }
+        public bool UseForcedPreambleForTextToSpeech
+        {
+            get => this.ReadValue(x => x.UseForcedPreambleForTextToSpeech);
+            set => this.Service.UseForcedPreambleForTextToSpeech = value;
+        }
+        public bool UseForcedPreambleForVoiceRecordingPlayback
+        {
+            get => this.ReadValue(x => x.UseForcedPreambleForVoiceRecordingPlayback);
+            set => this.Service.UseForcedPreambleForVoiceRecordingPlayback = value;
+        }
+        public string? ForcedPreambleText
+        {
+            get => this.ReadValue(x => x.ForcedPreambleText);
+            set => this.Service.ForcedPreambleText = value;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Tests
                 .First(x => x.Name.Contains("Kraken", StringComparison.OrdinalIgnoreCase));
             await container
                 .KenkuEmulationService
-                .SpeakAsync("This is a|Test|of the emergency broadcast|system", outputDevice);
+                .SpeakAsync("This is a|Test|of the emergency broadcast|system", default, outputDevice);
         }
 
         [TestMethod]
