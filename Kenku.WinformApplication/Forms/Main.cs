@@ -248,14 +248,19 @@ namespace Kenku.WinformApplication
                             var stringBuilder = new StringBuilder();
                             var audioWorker = await this
                                 .Session
-                                .StartRecordingAsync();
+                                .StartRecordingAsync()
+                                .ConfigureAwait(false);
                             var textWorker = this
                                 .SpeechToTextFactoryService
-                                ?.CreateWorker(x => stringBuilder.Append(x));
+                                ?.CreateWorker(x =>
+                                {
+                                    stringBuilder.Append(x);
+                                });
                             if (textWorker != null)
                             {
                                 await textWorker
-                                    .StartAsync();
+                                    .StartAsync()
+                                    .ConfigureAwait(false);
                             }
                             button.Tag = (stringBuilder, audioWorker!, textWorker);
                         }
@@ -271,14 +276,17 @@ namespace Kenku.WinformApplication
                                 audioWorker.Dispose();
                                 if (textWorker != null)
                                 {
+                                    await Task
+                                        .Delay(1000);
                                     await textWorker
                                         .StopAsync();
-                                    textWorker.Dispose();
+                                    textWorker
+                                        .Dispose();
                                 }
+                                button.Tag = null;
                                 this.KenkuVoiceRecordingControl
                                     .Bind(stream)
                                     .Bind(stringBuilder.ToString());
-                                button.Tag = null;
                             }
                         }
                         break;
