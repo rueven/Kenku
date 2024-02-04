@@ -137,6 +137,24 @@ namespace Kenku.WinformApplication
                             configurationService.Save();
                         }
                     });
+                configurationNode
+                    .AddClickableMenuItem("Manage Personalities", async (sender, e) =>
+                    {
+                        using var form = new PersonalityManagement(this.Session.Personalities);
+                        if (form.ShowDialog(this) == DialogResult.OK)
+                        {
+                            var personalities = form.EditedPersonalities;
+                            await this.Session
+                                .Container
+                                .PersonalityService
+                                .ReplaceAll(personalities);
+                            await this
+                                .Session
+                                .RefreshAsync();
+                            this.RefreshPersonalityOptions();
+                            this.RefreshVoiceRecordingLibraries();
+                        }
+                    });
             }
             this.KenkuMenuStrip
                 .AddToolStripMenuItem("Refresh Voices")
@@ -360,7 +378,7 @@ namespace Kenku.WinformApplication
 
         private void KenkuTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node?.Tag is IReadOnlyPersonality personality)
+            if (e.Node?.Tag is Personality personality)
             {
             }
             if (e.Node?.Tag is IReadOnlyVoiceRecording voiceRecording)
@@ -477,7 +495,7 @@ namespace Kenku.WinformApplication
 
         private async void UpdateVoiceRecordingPersonalityCommand_Click(object? sender, EventArgs e)
         {
-            if (sender is ToolStripMenuItem toolStripMenuItem && toolStripMenuItem.Tag is Tuple<IReadOnlyVoiceRecording, IReadOnlyPersonality> tuple)
+            if (sender is ToolStripMenuItem toolStripMenuItem && toolStripMenuItem.Tag is Tuple<IReadOnlyVoiceRecording, Personality> tuple)
             {
                 var isSuccess = await this.Session
                     .UpdateVoiceRecordingPersonality(tuple.Item1, tuple.Item2);

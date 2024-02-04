@@ -73,9 +73,30 @@ namespace Kenku.Services.Implementations
                 .Sort((x, y) => string.Compare(x.Name, y.Name, StringComparison.OrdinalIgnoreCase));
             var json = this
                 .SerializerService
-                .Serialize<List<Personality>>(personalities);
+                .Serialize(personalities);
             File.WriteAllText(file.FullName, json);
             return output;
+        }
+
+        public Task ReplaceAll(IReadOnlyList<IReadOnlyPersonality> replacements)
+        {
+            var file = this
+                .ConfigurationService
+                .GetPersonalityFile();
+            var items = replacements
+                .Select(x => x as Personality ?? new Personality()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description
+                }).ToList();
+            items
+                .Sort((x, y) => string.Compare(x.Name, y.Name, StringComparison.OrdinalIgnoreCase));
+            var json = this
+                .SerializerService
+                .Serialize(items);
+            File.WriteAllText(file.FullName, json);
+            return Task.CompletedTask;
         }
     }
 }
