@@ -56,4 +56,28 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="C:\Users\Admin\.nuget\packages\desktop.robot\1.5.0\build\osx.os" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\Admin\.nuget\packages\desktop.robot\1.5.0\build\osx_arm.os" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\Admin\.nuget\packages\desktop.robot\1.5.0\build\x11.os" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\Admin\.nuget\packages\desktop.robot\1.5.0\build\osx.os" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\Admin\.nuget\packages\desktop.robot\1.5.0\build\osx_arm.os" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\Admin\.nuget\packages\desktop.robot\1.5.0\build\x11.os" />
+  </ItemGroup>
+
 </Project>
