@@ -58,7 +58,7 @@
             this.PersonalityListBox.ItemHeight = 15;
             this.PersonalityListBox.Location = new Point(6, 25);
             this.PersonalityListBox.Name = "PersonalityListBox";
-            this.PersonalityListBox.Size = new Size(200, 244);
+            this.PersonalityListBox.Size = new Size(156, 244);
             this.PersonalityListBox.Sorted = true;
             this.PersonalityListBox.TabIndex = 5;
             this.PersonalityListBox.SelectedIndexChanged += this.PersonalityListBox_SelectedIndexChanged;
@@ -69,9 +69,9 @@
             this.groupBox1.Controls.Add(this.PersonalityNameTextBox);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new Point(230, 12);
+            this.groupBox1.Location = new Point(186, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new Size(351, 307);
+            this.groupBox1.Size = new Size(395, 307);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Personality";
@@ -80,7 +80,7 @@
             // 
             this.PersonalityDescriptionTextBox.Location = new Point(82, 51);
             this.PersonalityDescriptionTextBox.Name = "PersonalityDescriptionTextBox";
-            this.PersonalityDescriptionTextBox.Size = new Size(263, 23);
+            this.PersonalityDescriptionTextBox.Size = new Size(307, 23);
             this.PersonalityDescriptionTextBox.TabIndex = 8;
             this.PersonalityDescriptionTextBox.TextChanged += this.PersonalityDescriptionTextBox_TextChanged;
             // 
@@ -88,7 +88,7 @@
             // 
             this.PersonalityNameTextBox.Location = new Point(82, 22);
             this.PersonalityNameTextBox.Name = "PersonalityNameTextBox";
-            this.PersonalityNameTextBox.Size = new Size(264, 23);
+            this.PersonalityNameTextBox.Size = new Size(307, 23);
             this.PersonalityNameTextBox.TabIndex = 7;
             this.PersonalityNameTextBox.TextChanged += this.PersonalityNameTextBox_TextChanged;
             // 
@@ -127,14 +127,14 @@
             this.groupBox2.Controls.Add(this.AddCommand);
             this.groupBox2.Location = new Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new Size(212, 307);
+            this.groupBox2.Size = new Size(168, 307);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Personalities";
             // 
             // DeleteCommand
             // 
-            this.DeleteCommand.Location = new Point(131, 275);
+            this.DeleteCommand.Location = new Point(87, 275);
             this.DeleteCommand.Name = "DeleteCommand";
             this.DeleteCommand.Size = new Size(75, 23);
             this.DeleteCommand.TabIndex = 10;
@@ -150,6 +150,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.OkCommand);
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PersonalityManagement";
