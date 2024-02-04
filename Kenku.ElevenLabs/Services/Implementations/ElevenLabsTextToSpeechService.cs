@@ -20,14 +20,14 @@ namespace Kenku.Services.Implementations.TextToSpeech
         private Voice Voice { get; }
         private VoiceSettings VoiceSettings { get; }
 
-        public async Task SpeakAsync(string value, params IOutputAudioDeviceService[] outputAudioDeviceServices)
+        public async Task SpeakAsync(string value, CancellationToken cancellationToken, params IOutputAudioDeviceService[] outputAudioDeviceServices)
         {
             using var stream = await this
                 .ElevenLabsClientService
                 .GenerateAsync(this.Voice, this.VoiceSettings, value)
                 .ConfigureAwait(false);
             await stream
-                .PlayMp3Async(outputAudioDeviceServices)
+                .PlayMp3Async(cancellationToken, outputAudioDeviceServices)
                 .ConfigureAwait(false);
         }
     }

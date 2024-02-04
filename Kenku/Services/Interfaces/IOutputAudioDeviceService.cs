@@ -2,8 +2,8 @@
 {
     public interface IOutputAudioDeviceService : INamedService
     {
-        Task PlayWaveAsync(Stream stream);
+        Task PlayWaveAsync(Stream stream, CancellationToken cancellationToken);
 
-        Task PlayMp3Async(Stream stream);
+        Task PlayMp3Async(Stream stream, CancellationToken cancellationToken);
     }
 }

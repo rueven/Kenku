@@ -55,7 +55,7 @@ namespace Kenku.Objects.Implementations
             .Container
             .TextToSpeechServices;
 
-        public async Task PlayTextToSpeechAsync(string text)
+        public async Task PlayTextToSpeechAsync(string text, CancellationToken cancellationToken)
         {
             var audioDevices = new List<IOutputAudioDeviceService>();
             audioDevices.Add(this.OutputAudioDeviceService);
@@ -68,12 +68,13 @@ namespace Kenku.Objects.Implementations
                 .SpeakAsync
                 (
                     text,
+                    cancellationToken,
                     audioDevices.ToArray()
                 )
                 .ConfigureAwait(false);
         }
 
-        public async Task PlayVoiceRecording(IReadOnlyVoiceRecording voiceRecording)
+        public async Task PlayVoiceRecording(IReadOnlyVoiceRecording voiceRecording, CancellationToken cancellationToken)
         {
             var outputAudioDevices = new List<IOutputAudioDeviceService>();
             outputAudioDevices.Add(this.OutputAudioDeviceService);
@@ -84,16 +85,16 @@ namespace Kenku.Objects.Implementations
             await this
                 .Container
                 .VoiceRecordingService
-                .PlayAsync(voiceRecording, outputAudioDevices.ToArray())
+                .PlayAsync(voiceRecording, cancellationToken, outputAudioDevices.ToArray())
                 .ConfigureAwait(false);
         }
 
-        public async Task PreviewVoiceRecording(IReadOnlyVoiceRecording voiceRecording)
+        public async Task PreviewVoiceRecording(IReadOnlyVoiceRecording voiceRecording, CancellationToken cancellationToken)
         {
             await this
                 .Container
                 .VoiceRecordingService
-                .PlayAsync(voiceRecording, this.PreviewAudioDeviceService)
+                .PlayAsync(voiceRecording, cancellationToken, this.PreviewAudioDeviceService)
                 .ConfigureAwait(false);
         }
 

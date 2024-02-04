@@ -17,7 +17,7 @@ namespace Kenku.GoogleCloudVoice
         protected TextToSpeechClient Client { get; }
         public string Name { get; }
 
-        public async Task SpeakAsync(string value, params IOutputAudioDeviceService[] outputAudioDeviceServices)
+        public async Task SpeakAsync(string value, CancellationToken cancellationToken, params IOutputAudioDeviceService[] outputAudioDeviceServices)
         {
             var response = await this
                 .Client
@@ -43,7 +43,7 @@ namespace Kenku.GoogleCloudVoice
                     .WriteTo(stream);
                 stream.Position = 0;
                 await stream
-                    .PlayWaveAsync(outputAudioDeviceServices)
+                    .PlayWaveAsync(cancellationToken, outputAudioDeviceServices)
                     .ConfigureAwait(false);
             }
         }

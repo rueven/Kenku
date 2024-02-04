@@ -48,7 +48,7 @@ namespace Kenku.Services.Implementations
                 .FromResult<IReadOnlyVoiceRecording?>(output);
         }
 
-        public async Task PlayAsync(IReadOnlyVoiceRecording recording, params IOutputAudioDeviceService[] outputAudioDeviceServices)
+        public async Task PlayAsync(IReadOnlyVoiceRecording recording, CancellationToken cancellationToken, params IOutputAudioDeviceService[] outputAudioDeviceServices)
         {
             var stream = await this
                 .AudioResourceService
@@ -60,12 +60,12 @@ namespace Kenku.Services.Implementations
                 {
                     case Enums.StreamType.Wave:
                         await stream
-                            .PlayWaveAsync(outputAudioDeviceServices)
+                            .PlayWaveAsync(cancellationToken, outputAudioDeviceServices)
                             .ConfigureAwait(false);
                         break;
                     case Enums.StreamType.MP3:
                         await stream
-                            .PlayMp3Async(outputAudioDeviceServices)
+                            .PlayMp3Async(cancellationToken, outputAudioDeviceServices)
                             .ConfigureAwait(false);
                         break;
                     default:

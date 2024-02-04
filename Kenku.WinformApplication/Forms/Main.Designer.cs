@@ -39,23 +39,22 @@
             this.KenkuSimpleTextToSpeechPlayCommand = new Button();
             this.KenkuSplitContainer = new SplitContainer();
             this.KenkuTreeView = new TreeView();
-            this.KenkuVoiceRecordingTabPage = new TabPage();
-            this.KenkuRecordCommand = new PictureBox();
-            this.KenkuVoiceRecordingControl = new Controls.RecordingControl();
             this.KenkuVoiceSelectionTabPage = new TabPage();
             this.KenkuVoiceSelectionUnCheckAll = new Button();
             this.KenkuVoiceSelectionCheckAll = new Button();
             this.KenkuVoiceSelectionApplyCommand = new Button();
             this.KenkuVoiceSelectionCheckBoxList = new CheckedListBox();
+            this.KenkuVoiceRecordingControl = new Controls.RecordingControl();
+            this.KenkuRecordCommand = new PictureBox();
             this.KenkuTabControl.SuspendLayout();
             this.KenkuTextToSpeechTab.SuspendLayout();
             this.KenkuTextToSpeechGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this.KenkuSplitContainer).BeginInit();
             this.KenkuSplitContainer.Panel1.SuspendLayout();
+            this.KenkuSplitContainer.Panel2.SuspendLayout();
             this.KenkuSplitContainer.SuspendLayout();
-            this.KenkuVoiceRecordingTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)this.KenkuRecordCommand).BeginInit();
             this.KenkuVoiceSelectionTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)this.KenkuRecordCommand).BeginInit();
             this.SuspendLayout();
             // 
             // KenkuStatusStrip
@@ -78,7 +77,6 @@
             // 
             this.KenkuTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.KenkuTabControl.Controls.Add(this.KenkuTextToSpeechTab);
-            this.KenkuTabControl.Controls.Add(this.KenkuVoiceRecordingTabPage);
             this.KenkuTabControl.Controls.Add(this.KenkuVoiceSelectionTabPage);
             this.KenkuTabControl.Location = new Point(3, 40);
             this.KenkuTabControl.Name = "KenkuTabControl";
@@ -162,6 +160,11 @@
             // KenkuSplitContainer.Panel1
             // 
             this.KenkuSplitContainer.Panel1.Controls.Add(this.KenkuTreeView);
+            // 
+            // KenkuSplitContainer.Panel2
+            // 
+            this.KenkuSplitContainer.Panel2.Controls.Add(this.KenkuRecordCommand);
+            this.KenkuSplitContainer.Panel2.Controls.Add(this.KenkuVoiceRecordingControl);
             this.KenkuSplitContainer.Size = new Size(2156, 763);
             this.KenkuSplitContainer.SplitterDistance = 718;
             this.KenkuSplitContainer.TabIndex = 3;
@@ -175,35 +178,6 @@
             this.KenkuTreeView.TabIndex = 0;
             this.KenkuTreeView.NodeMouseClick += this.KenkuTreeView_NodeMouseClick;
             this.KenkuTreeView.NodeMouseDoubleClick += this.KenkuTreeView_NodeMouseDoubleClick;
-            // 
-            // KenkuVoiceRecordingTabPage
-            // 
-            this.KenkuVoiceRecordingTabPage.Controls.Add(this.KenkuRecordCommand);
-            this.KenkuVoiceRecordingTabPage.Controls.Add(this.KenkuVoiceRecordingControl);
-            this.KenkuVoiceRecordingTabPage.Location = new Point(4, 24);
-            this.KenkuVoiceRecordingTabPage.Name = "KenkuVoiceRecordingTabPage";
-            this.KenkuVoiceRecordingTabPage.Padding = new Padding(3);
-            this.KenkuVoiceRecordingTabPage.Size = new Size(2165, 834);
-            this.KenkuVoiceRecordingTabPage.TabIndex = 1;
-            this.KenkuVoiceRecordingTabPage.Text = "Voice Recording";
-            this.KenkuVoiceRecordingTabPage.UseVisualStyleBackColor = true;
-            // 
-            // KenkuRecordCommand
-            // 
-            this.KenkuRecordCommand.Location = new Point(6, 97);
-            this.KenkuRecordCommand.Name = "KenkuRecordCommand";
-            this.KenkuRecordCommand.Size = new Size(93, 93);
-            this.KenkuRecordCommand.TabIndex = 1;
-            this.KenkuRecordCommand.TabStop = false;
-            this.KenkuRecordCommand.Click += this.KenkuRecordCommand_Click;
-            // 
-            // KenkuVoiceRecordingControl
-            // 
-            this.KenkuVoiceRecordingControl.Dock = DockStyle.Fill;
-            this.KenkuVoiceRecordingControl.Location = new Point(3, 3);
-            this.KenkuVoiceRecordingControl.Name = "KenkuVoiceRecordingControl";
-            this.KenkuVoiceRecordingControl.Size = new Size(2159, 828);
-            this.KenkuVoiceRecordingControl.TabIndex = 0;
             // 
             // KenkuVoiceSelectionTabPage
             // 
@@ -257,6 +231,23 @@
             this.KenkuVoiceSelectionCheckBoxList.Size = new Size(320, 796);
             this.KenkuVoiceSelectionCheckBoxList.TabIndex = 0;
             // 
+            // KenkuVoiceRecordingControl
+            // 
+            this.KenkuVoiceRecordingControl.Dock = DockStyle.Fill;
+            this.KenkuVoiceRecordingControl.Location = new Point(0, 0);
+            this.KenkuVoiceRecordingControl.Name = "KenkuVoiceRecordingControl";
+            this.KenkuVoiceRecordingControl.Size = new Size(1434, 763);
+            this.KenkuVoiceRecordingControl.TabIndex = 1;
+            // 
+            // KenkuRecordCommand
+            // 
+            this.KenkuRecordCommand.Location = new Point(3, 95);
+            this.KenkuRecordCommand.Name = "KenkuRecordCommand";
+            this.KenkuRecordCommand.Size = new Size(93, 93);
+            this.KenkuRecordCommand.TabIndex = 2;
+            this.KenkuRecordCommand.TabStop = false;
+            this.KenkuRecordCommand.Click += this.KenkuRecordCommand_Click;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
@@ -272,11 +263,11 @@
             this.KenkuTextToSpeechGroupBox.ResumeLayout(false);
             this.KenkuTextToSpeechGroupBox.PerformLayout();
             this.KenkuSplitContainer.Panel1.ResumeLayout(false);
+            this.KenkuSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)this.KenkuSplitContainer).EndInit();
             this.KenkuSplitContainer.ResumeLayout(false);
-            this.KenkuVoiceRecordingTabPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)this.KenkuRecordCommand).EndInit();
             this.KenkuVoiceSelectionTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)this.KenkuRecordCommand).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -289,7 +280,6 @@
         private TabPage KenkuTextToSpeechTab;
         private SplitContainer KenkuSplitContainer;
         private TreeView KenkuTreeView;
-        private TabPage KenkuVoiceRecordingTabPage;
         private GroupBox KenkuTextToSpeechGroupBox;
         private TextBox KenkuSimpleTextToSpeechInputText;
         private Label label1;
@@ -300,7 +290,7 @@
         private Button KenkuVoiceSelectionApplyCommand;
         private Button KenkuVoiceSelectionCheckAll;
         private Button KenkuVoiceSelectionUnCheckAll;
-        private Controls.RecordingControl KenkuVoiceRecordingControl;
         private PictureBox KenkuRecordCommand;
+        private Controls.RecordingControl KenkuVoiceRecordingControl;
     }
 }

@@ -23,13 +23,17 @@ namespace Kenku.Services.Implementations
             .FilteredTextToSpeechServices ?? this
             .TextToSpeechServices;
 
-        public async Task SpeakAsync(string value, params IOutputAudioDeviceService[] outputAudioDeviceServices)
+        public async Task SpeakAsync(string value, CancellationToken cancellationToken, params IOutputAudioDeviceService[] outputAudioDeviceServices)
         {
             var parts = this
                 .KenkuVoiceTextParserService
                 .Parse(value);
             foreach (var part in parts)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
                 if (part.VoiceRecording == null)
                 {
                     var service = this
@@ -40,14 +44,14 @@ namespace Kenku.Services.Implementations
                         throw new Exception("No ITextToSpeechService found");
                     }
                     await service
-                        .SpeakAsync(part.Text, outputAudioDeviceServices)
+                        .SpeakAsync(part.Text, cancellationToken, outputAudioDeviceServices)
                         .ConfigureAwait(false);
                 }
                 else
                 {
                     await this
                         .VoiceRecordingService
-                        .PlayAsync(part.VoiceRecording, outputAudioDeviceServices)
+                        .PlayAsync(part.VoiceRecording, cancellationToken, outputAudioDeviceServices)
                         .ConfigureAwait(false);
                 }
             }

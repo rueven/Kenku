@@ -14,7 +14,7 @@ namespace Kenku.Services.Implementations
         public string Name { get; }
         private int Index { get; }
 
-        public async Task PlayWaveAsync(Stream stream)
+        public async Task PlayWaveAsync(Stream stream, CancellationToken cancellationToken)
         {
             var position = stream.Position;
             using var wave = new WaveFileReader(stream);
@@ -23,12 +23,17 @@ namespace Kenku.Services.Implementations
             player.Play();
             while (player.PlaybackState == PlaybackState.Playing)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    player.Stop();
+                    break;
+                }
                 await Task.Delay(100);
             }
             stream.Seek(position, SeekOrigin.Current);
         }
 
-        public async Task PlayMp3Async(Stream stream)
+        public async Task PlayMp3Async(Stream stream, CancellationToken cancellationToken)
         {
             var position = stream.Position;
             using var reader = new Mp3FileReader(stream);
@@ -42,6 +47,11 @@ namespace Kenku.Services.Implementations
             player.Play();
             while (player.PlaybackState == PlaybackState.Playing)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    player.Stop();
+                    break;
+                }
                 await Task.Delay(100);
             }
             stream.Seek(position, SeekOrigin.Current);

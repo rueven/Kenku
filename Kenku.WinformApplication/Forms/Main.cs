@@ -148,7 +148,7 @@ namespace Kenku.WinformApplication
                 (
                     session.Container.VoiceRecordingOperationsService,
                     session.Personalities,
-                    async stream => await this.Session.PreviewAsync(stream),
+                    async stream => await this.Session.PreviewAsync(stream, default),
                     async (personality, text, stream, _) =>
                     {
                         await this
@@ -215,14 +215,39 @@ namespace Kenku.WinformApplication
 
         private async void KenkuSimpleTextToSpeechPlayCommand_Click(object sender, EventArgs e)
         {
-            await this
-                .ExecuteWhilePushToTalk(async () =>
-                {
-                    await this
-                        .Session
-                        .PlayTextToSpeechAsync(this.KenkuSimpleTextToSpeechInputText.Text);
-                })
-                .ConfigureAwait(false);
+            if (this.KenkuSimpleTextToSpeechPlayCommand.Tag is CancellationTokenSource source)
+            {
+                await source
+                    .CancelAsync();
+                source
+                    .Dispose();
+                this.KenkuSimpleTextToSpeechPlayCommand.Tag = null;
+                this.KenkuSimpleTextToSpeechPlayCommand.Image = this.PlayIcon;
+            }
+            else
+            {
+                this.KenkuSimpleTextToSpeechPlayCommand.Image = this.StopPlayIcon;
+                using var tokenSource = new CancellationTokenSource();
+                this.KenkuSimpleTextToSpeechPlayCommand.Tag = tokenSource;
+                await this
+                    .ExecuteWhilePushToTalk(async () =>
+                    {
+                        try
+                        {
+                            await this
+                                .Session
+                                .PlayTextToSpeechAsync(this.KenkuSimpleTextToSpeechInputText.Text, tokenSource.Token);
+                        }
+                        catch (OperationCanceledException) { }
+                        finally
+                        {
+                            tokenSource
+                                .Dispose();
+                        }
+                        this.KenkuSimpleTextToSpeechPlayCommand.Tag = null;
+                    });
+                this.KenkuSimpleTextToSpeechPlayCommand.Image = this.PlayIcon;
+            }
         }
 
         private void KenkuSimpleTextToSpeechVoiceSelector_SelectedIndexChanged(object sender, EventArgs e)
@@ -437,7 +462,7 @@ namespace Kenku.WinformApplication
                     {
                         await this
                             .Session
-                            .PlayVoiceRecording(voiceRecording)
+                            .PlayVoiceRecording(voiceRecording, default)
                             .ConfigureAwait(false);
                     })
                     .ConfigureAwait(false);
@@ -450,7 +475,7 @@ namespace Kenku.WinformApplication
             {
                 await this
                     .Session
-                    .PreviewVoiceRecording(voiceRecording);
+                    .PreviewVoiceRecording(voiceRecording, default);
             }
         }
 

@@ -21,16 +21,16 @@ namespace Kenku.Objects.Interfaces
         IInputAudioDeviceService InputAudioDeviceService { get; set; }
         ITextToSpeechService SimpleTextToSpeechService { get; set; }
 
-        Task PlayTextToSpeechAsync(string text);
-        Task PlayVoiceRecording(IReadOnlyVoiceRecording voiceRecording);
-        Task PreviewVoiceRecording(IReadOnlyVoiceRecording voiceRecording);
+        Task PlayTextToSpeechAsync(string text, CancellationToken cancellationToken);
+        Task PlayVoiceRecording(IReadOnlyVoiceRecording voiceRecording, CancellationToken cancellationToken);
+        Task PreviewVoiceRecording(IReadOnlyVoiceRecording voiceRecording, CancellationToken cancellationToken);
         Task<bool> DeleteVoiceRecording(IReadOnlyVoiceRecording voiceRecording);
         Task<bool> UpdateVoiceRecordingPersonality(IReadOnlyVoiceRecording voiceRecording, IReadOnlyPersonality personality);
 
         
         Task<string> GetFullFilePath(IReadOnlyVoiceRecording voiceRecording);
 
-        Task PreviewAsync(Stream stream);
+        Task PreviewAsync(Stream stream, CancellationToken cancellationToken);
         Task<IAudioCaptureWorker> StartRecordingAsync();
         Task SaveRecordingAsync(IReadOnlyPersonality personality, string text, Stream stream);
     }

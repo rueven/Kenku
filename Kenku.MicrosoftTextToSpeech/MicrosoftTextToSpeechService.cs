@@ -22,7 +22,7 @@ namespace Kenku.MicrosoftTextToSpeech
             .Synthesizer
             ?.Dispose();
 
-        public async Task SpeakAsync(string value, params IOutputAudioDeviceService[] outputAudioDeviceService)
+        public async Task SpeakAsync(string value, CancellationToken cancellationToken, params IOutputAudioDeviceService[] outputAudioDeviceService)
         {
             using (var stream = new MemoryStream())
             {
@@ -34,7 +34,7 @@ namespace Kenku.MicrosoftTextToSpeech
                     .Speak(value);
                 stream.Position = 0;
                 await stream
-                    .PlayWaveAsync(outputAudioDeviceService)
+                    .PlayWaveAsync(cancellationToken, outputAudioDeviceService)
                     .ConfigureAwait(false);
             }
         }

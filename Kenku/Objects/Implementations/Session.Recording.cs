@@ -10,12 +10,12 @@ namespace Kenku.Objects.Implementations
             .InnerInputAudioDeviceService
             .StartRecording();
 
-        async Task ISession.PreviewAsync(Stream stream)
+        async Task ISession.PreviewAsync(Stream stream, CancellationToken cancellationToken)
         {
             stream.Seek(0, SeekOrigin.Begin);
             await this
                 .PreviewAudioDeviceService
-                .PlayMp3Async(stream);
+                .PlayMp3Async(stream, cancellationToken);
         }
 
         async Task ISession.SaveRecordingAsync(IReadOnlyPersonality personality, string text, Stream stream)

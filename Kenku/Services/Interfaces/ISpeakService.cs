@@ -2,6 +2,6 @@
 {
     public interface ISpeakService
     {
-        Task SpeakAsync(string value, params IOutputAudioDeviceService[] outputAudioDeviceServices);
+        Task SpeakAsync(string value, CancellationToken cancellationToken, params IOutputAudioDeviceService[] outputAudioDeviceServices);
     }
 }

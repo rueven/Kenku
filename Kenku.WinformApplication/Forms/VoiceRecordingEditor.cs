@@ -18,7 +18,7 @@ namespace Kenku.WinformApplication.Forms
                 (
                     session.Container.VoiceRecordingOperationsService,
                     session.Personalities,
-                    async stream => await this.Session.PreviewAsync(stream),
+                    async stream => await this.Session.PreviewAsync(stream, default),
                     async (personality, text, stream, asNew) =>
                     {
                         if (asNew)

@@ -12,7 +12,7 @@ namespace Kenku.Extensions
             return output;
         }
 
-        private static async Task PlayAsync(this Stream stream, Func<IOutputAudioDeviceService, Func<Stream, Task>> methodSelector, IOutputAudioDeviceService[] outputAudioDeviceServices)
+        private static async Task PlayAsync(this Stream stream, CancellationToken cancellationToken, Func<IOutputAudioDeviceService, Func<Stream, CancellationToken, Task>> methodSelector, IOutputAudioDeviceService[] outputAudioDeviceServices)
         {
             var streamCloneTasks = outputAudioDeviceServices
                 .Distinct()
@@ -37,7 +37,7 @@ namespace Kenku.Extensions
                             .Seek(0, SeekOrigin.Begin);
                         var method = methodSelector
                             .Invoke(task.Result.Service);
-                        await method(task.Result.Stream)
+                        await method(task.Result.Stream, cancellationToken)
                             .ConfigureAwait(false);
                     }
                 })
@@ -47,10 +47,10 @@ namespace Kenku.Extensions
                 .ConfigureAwait(false);
         }
 
-        public static Task PlayWaveAsync(this Stream stream, IOutputAudioDeviceService[] outputAudioDeviceServices) => stream
-            .PlayAsync(x => x.PlayWaveAsync, outputAudioDeviceServices);
+        public static Task PlayWaveAsync(this Stream stream, CancellationToken cancellationToken, IOutputAudioDeviceService[] outputAudioDeviceServices) => stream
+            .PlayAsync(cancellationToken, x => x.PlayWaveAsync, outputAudioDeviceServices);
 
-        public static Task PlayMp3Async(this Stream stream, IOutputAudioDeviceService[] outputAudioDeviceServices) => stream
-            .PlayAsync(x => x.PlayMp3Async, outputAudioDeviceServices);
+        public static Task PlayMp3Async(this Stream stream, CancellationToken cancellationToken, IOutputAudioDeviceService[] outputAudioDeviceServices) => stream
+            .PlayAsync(cancellationToken, x => x.PlayMp3Async, outputAudioDeviceServices);
     }
 }
