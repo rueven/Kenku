@@ -4,6 +4,6 @@ namespace Kenku.Services.Interfaces
 {
     public interface ISpeechToTextFactoryService
     {
-        ISpeechToTextWorker CreateWorker(Action<string> receiver);
+        Task<ISpeechToTextWorker> CreateWorker(Action<string> receiver);
     }
 }

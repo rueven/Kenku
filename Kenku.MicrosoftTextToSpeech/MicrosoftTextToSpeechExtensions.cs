@@ -23,5 +23,10 @@ namespace Kenku.MicrosoftTextToSpeech
         {
             return new MicrosoftSpeechToTextService();
         }
+
+        public static ISpeechToTextFactoryService CreateWindowsMediaSpeechToTextFactoryService(this IReadOnlyContainer container)
+        {
+            return new WindowsMediaSpeechToTextService();
+        }
     }
 }

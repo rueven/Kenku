@@ -7,9 +7,10 @@ namespace Kenku.MicrosoftTextToSpeech
 {
     internal class MicrosoftSpeechToTextService : ISpeechToTextFactoryService
     {
-        public ISpeechToTextWorker CreateWorker(Action<string> receiver)
+        public Task<ISpeechToTextWorker> CreateWorker(Action<string> receiver)
         {
-            return new SpeechToTextWorker(this.CreateRecognizer(), receiver);
+            var output = new MicrosoftSpeechToTextWorker(this.CreateRecognizer(), receiver);
+            return Task.FromResult<ISpeechToTextWorker>(output);
         }
 
         private SpeechRecognitionEngine CreateRecognizer()

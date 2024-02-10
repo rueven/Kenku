@@ -328,19 +328,23 @@ namespace Kenku.WinformApplication
                                 .Session
                                 .StartRecordingAsync()
                                 .ConfigureAwait(false);
-                            var textWorker = this
-                                .SpeechToTextFactoryService
-                                ?.CreateWorker(x =>
-                                {
-                                    stringBuilder.Append(x);
-                                });
-                            if (textWorker != null)
+                            if (this.SpeechToTextFactoryService != null)
                             {
+                                var textWorker = await this
+                                    .SpeechToTextFactoryService
+                                    .CreateWorker(x =>
+                                    {
+                                        stringBuilder.Append(x);
+                                    });
                                 await textWorker
                                     .StartAsync()
                                     .ConfigureAwait(false);
+                                button.Tag = (stringBuilder, audioWorker!, textWorker);
                             }
-                            button.Tag = (stringBuilder, audioWorker!, textWorker);
+                            else
+                            {
+                                button.Tag = (stringBuilder, audioWorker!, (ISpeechToTextWorker)null);
+                            }
                         }
                         break;
                     case " ":

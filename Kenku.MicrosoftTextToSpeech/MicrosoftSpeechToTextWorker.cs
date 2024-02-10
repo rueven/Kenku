@@ -3,10 +3,10 @@ using System.Speech.Recognition;
 
 namespace Kenku.MicrosoftTextToSpeech
 {
-    internal class SpeechToTextWorker : ISpeechToTextWorker
+    internal class MicrosoftSpeechToTextWorker : ISpeechToTextWorker
     {
 #pragma warning disable CA1416 // Validate platform compatibility
-        public SpeechToTextWorker(SpeechRecognitionEngine recognizer, Action<string> receiver)
+        public MicrosoftSpeechToTextWorker(SpeechRecognitionEngine recognizer, Action<string> receiver)
         {
             this.Recognizer = recognizer;
             this.Recognizer.SpeechRecognized += this.Recognizer_SpeechRecognized;

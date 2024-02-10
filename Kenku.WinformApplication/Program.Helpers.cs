@@ -40,7 +40,9 @@ namespace Kenku.WinformApplication
             try
             {
                 return container
-                    .CreateMicrosoftSpeechToTextFactoryService();
+                    .CreateWindowsMediaSpeechToTextFactoryService();
+                //return container
+                //    .CreateMicrosoftSpeechToTextFactoryService();
             }
             catch (Exception e)
             {
