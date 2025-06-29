@@ -221,3 +221,122 @@ flowchart TD
 ```
 
 ---
+
+# Kenku Service Builder
+
+A modular, fluent builder pattern for constructing a fully configured Kenku service container.  
+This builder enforces a strict order of service setup to ensure all dependencies are properly wired.
+
+---
+
+## Overview
+
+The Kenku Builder provides a stepwise approach to build a rich container (`IReadOnlyContainer`) that manages all core Kenku services:
+
+- Configuration management  
+- Serialization  
+- Personality and behavior  
+- Audio resource management  
+- Voice recording and operations  
+- Input/output audio devices  
+- Text-to-speech and emulation  
+
+Each step in the builder chain configures and injects one or more services, returning the next step interface until the final container is built.
+
+---
+
+## Builder Chain Summary
+
+### 1. Configuration Setup
+
+- Start with an existing configuration service or specify an asset directory path.  
+- Interface: `IKenkuBuilderConfigurationService`  
+- Returns: `IKenkuBuilderSerializerService`
+
+### 2. Serializer Service Setup
+
+- Use a custom serializer or the default `SerializerService`.  
+- Interface: `IKenkuBuilderSerializerService`  
+- Returns: `IKenkuBuilderPersonalityService`
+
+### 3. Personality Service Setup
+
+- Add personality logic either by supplying a custom service or using the default `PersonalityService`.  
+- Interface: `IKenkuBuilderPersonalityService`  
+- Returns: `IKenkuBuilderAudioResourceService`
+
+### 4. Audio Resource Service Setup
+
+- Configure audio resource management with a custom or default `AudioResourceService`.  
+- Interface: `IKenkuBuilderAudioResourceService`  
+- Returns: `IKenkuBuilderVoiceRecordingService`
+
+### 5. Voice Recording Service Setup
+
+- Add voice recording capabilities with custom or default `VoiceRecordingService`.  
+- Interface: `IKenkuBuilderVoiceRecordingService`  
+- Returns: `IKenkuBuilderVoiceRecordingOperationsService`
+
+### 6. Voice Recording Operations Service Setup
+
+- Register voice recording operations service.  
+- Interface: `IKenkuBuilderVoiceRecordingOperationsService`  
+- Returns: `IKenkuBuilderInputAudioDevices`
+
+### 7. Input Audio Devices Setup
+
+- Add input audio devices (e.g., microphones).  
+- Interface: `IKenkuBuilderInputAudioDevices`  
+- Returns: `IKenkuBuilderOutputAudioDevices`
+
+### 8. Output Audio Devices Setup
+
+- Add output audio devices (e.g., speakers).  
+- Interface: `IKenkuBuilderOutputAudioDevices`  
+- Returns: `IKenkuBuilderFinalizer`
+
+### 9. Finalize and Build Container
+
+- Build the complete `IReadOnlyContainer` with all configured services wired.  
+- Interface: `IKenkuBuilderFinalizer`  
+- Returns: `IReadOnlyContainer`
+
+---
+
+## Conceptual Flow Diagram
+
+```mermaid
+flowchart TD
+    A[ConfigurationService] --> B[SerializerService]
+    B --> C[PersonalityService]
+    C --> D[AudioResourceService]
+    D --> E[VoiceRecordingService]
+    E --> F[VoiceRecordingOperationsService]
+    F --> G[InputAudioDevices]
+    G --> H[OutputAudioDevices]
+    H --> I[Build IReadOnlyContainer]
+```
+
+---
+
+## Example Usage
+
+```csharp
+var container = ServiceFactory
+    .CreateContainer()
+    .WithConfigurationService(myConfigService)          // Step 1
+    .WithDefaultSerializerService()                      // Step 2
+    .WithDefaultPersonalityService()                     // Step 3
+    .WithDefaultAudioResourceService()                   // Step 4
+    .WithDefaultVoiceRecordingService()                  // Step 5
+    .WithVoiceRecordingOperationsService(myOpsService)  // Step 6
+    .AddInputAudioDeviceServices(myInputDevices)        // Step 7
+    .AddOutputAudioDeviceServices(myOutputDevices)      // Step 8
+    .Build();                                            // Step 9
+```
+
+Benefits
+ - Strict build order guarantees proper service initialization
+- Fluent API improves readability and ease of use
+- Extensibility via allowing custom implementations at every stage
+- Centralized container simplifies managing all Kenku service dependencies
