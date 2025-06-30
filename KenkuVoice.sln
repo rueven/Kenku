@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.WinformApplication", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kenku.GoogleCloudVoice", "Kenku.GoogleCloudVoice\Kenku.GoogleCloudVoice.csproj", "{2D33F599-77F9-4D5C-BD81-7BF85181862B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kenku.MauiApplication", "Kenku.MauiApplication\Kenku.MauiApplication.csproj", "{AD7D5B68-8438-41F8-A392-3B64C98DA73E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,12 @@ Global
 		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D33F599-77F9-4D5C-BD81-7BF85181862B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7D5B68-8438-41F8-A392-3B64C98DA73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7D5B68-8438-41F8-A392-3B64C98DA73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7D5B68-8438-41F8-A392-3B64C98DA73E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AD7D5B68-8438-41F8-A392-3B64C98DA73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7D5B68-8438-41F8-A392-3B64C98DA73E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7D5B68-8438-41F8-A392-3B64C98DA73E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
